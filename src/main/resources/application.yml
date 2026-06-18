@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: bestroute-api
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATADASE_USER}
+    password: ${DATADASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  ai:
+    openai:
+      api-key: ${GROQ_API_KEY}
+      base-url: https://api.groq.com/openai/v1
+      chat:
+        options:
+          model: llama-3.1-8b-instant
+          temperature: 1.0
