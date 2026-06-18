@@ -23,7 +23,7 @@ services:
       POSTGRES_USER: postgres_test
       POSTGRES_PASSWORD: postgres_test
     volumes:
-      - postgres_data:/var/lib/postgresql_test/data
+      - postgres_test_data:/var/lib/postgresql/data
     networks:
       - bestroute-api-network
 
@@ -51,10 +51,11 @@ services:
       - ./.m2:/root/.m2
     working_dir: /app
     environment:
-      - SPRING_PROFILES_ACTIVE=local
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-test:5432/postgres_test
-      - SPRING_DATASOURCE_USERNAME=postgres_test
-      - SPRING_DATASOURCE_PASSWORD=postgres_test
+      - SPRING_PROFILES_ACTIVE=test
+      - DB_HOST=postgres-test
+      - DB_PORT=5432
+      - DB_USERNAME=postgres_test
+      - DB_PASSWORD=postgres_test
       - GROQ_API_KEY=${GROQ_API_KEY}
     depends_on:
       - postgres-test
@@ -64,6 +65,7 @@ services:
 
 volumes:
   postgres_data:
+  postgres_test_data:
 
 networks:
   bestroute-api-network:

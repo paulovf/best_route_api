@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres_test
-    username: postgres_test
-    password: postgres_test
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/postgres_test
+    username: ${DB_USERNAME:postgres_test}
+    password: ${DB_PASSWORD:postgres_test}
     driver-class-name: org.postgresql.Driver
 
   flyway:
