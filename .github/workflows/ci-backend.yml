@@ -38,7 +38,7 @@ jobs:
       - name: Run Tests with Maven
         run: mvn clean test
         env:
-          DATABASE_URL: jdbc:postgresql://localhost:5432/postgres
-          DATADASE_USER: postgres
-          DATADASE_PASSWORD: postgres
+          DATABASE_URL: jdbc:postgresql://localhost:5432/postgres_test
+          DATADASE_USER: postgres_test
+          DATADASE_PASSWORD: postgres_test
           GROQ_API_KEY: "mocked-key-for-test-purposes"
