@@ -20,7 +20,6 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=local
-      # O pulo do gato: dentro do Docker, o host do banco deixa de ser 'localhost' e passa a ser o nome do serviço 'postgres-local'
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-local:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
