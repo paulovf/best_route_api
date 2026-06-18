@@ -17,7 +17,7 @@ services:
     image: postgres:17.6-alpine
     container_name: database_test
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_DB: postgres_test
       POSTGRES_USER: postgres_test
@@ -52,9 +52,9 @@ services:
     working_dir: /app
     environment:
       - SPRING_PROFILES_ACTIVE=local
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-local:5432/postgres
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-test:5432/postgres_test
+      - SPRING_DATASOURCE_USERNAME=postgres_test
+      - SPRING_DATASOURCE_PASSWORD=postgres_test
       - GROQ_API_KEY=${GROQ_API_KEY}
     depends_on:
       - postgres-test
