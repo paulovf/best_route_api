@@ -1,0 +1,56 @@
+services:
+  postgres-local:
+    image: postgres:17.6-alpine
+    container_name: database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bestroute-api-network
+
+  api:
+    build: .
+    container_name: bestroute-api-container
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      # O pulo do gato: dentro do Docker, o host do banco deixa de ser 'localhost' e passa a ser o nome do serviço 'postgres-local'
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-local:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    depends_on:
+      - postgres-local
+    networks:
+      - bestroute-api-network
+
+  tests:
+    image: maven:3.9.6-eclipse-temurin-21
+    container_name: bestroute-api-test
+    volumes:
+      - .:/app
+      - ./.m2:/root/.m2
+    working_dir: /app
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-local:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    depends_on:
+      - postgres-local
+    networks:
+      - bestroute-api-network
+    command: mvn test
+
+volumes:
+  postgres_data:
+
+networks:
+  bestroute-api-network:
