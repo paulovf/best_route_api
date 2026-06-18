@@ -1,0 +1,46 @@
+name: Git Convention Checker
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  validate-git-patterns:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Branch Name
+        run: |
+          BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          
+          REGEX_BRANCH="^(feat|fix|hotfix)[\/-].+$"
+          
+          if [[ ! "$BRANCH_NAME" =~ $REGEX_BRANCH ]]; then
+            echo "=========================================================================="
+            echo "ERROR: Invalid branch name!"
+            echo "Your branch: '$BRANCH_NAME'"
+            echo "The branch name must strictly start with: feat/, fix/, or hotfix/"
+            echo "Valid examples: feat/add-groq-service, fix/error-404-route"
+            echo "=========================================================================="
+            exit 1
+          fi
+          echo "Branch name '$BRANCH_NAME' matches the required pattern!"
+
+      - name: Validate Pull Request Title
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          
+          REGEX_TITLE="^(feat|fix|hotfix): .+$"
+          
+          if [[ ! "$PR_TITLE" =~ $REGEX_TITLE ]]; then
+            echo "=========================================================================="
+            echo "ERROR: Invalid Pull Request title!"
+            echo "Your title: '$PR_TITLE'"
+            echo "The PR title must follow the Conventional Commits specification:"
+            echo "- feat: a new feature"
+            echo "- fix: a bug fix"
+            echo "- hotfix: a critical production hotfix"
+            echo "Valid example: feat: configure git ci workflow"
+            echo "=========================================================================="
+            exit 1
+          fi
+          echo "PR title '$PR_TITLE' matches the required pattern!"
