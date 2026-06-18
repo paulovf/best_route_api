@@ -1,10 +1,10 @@
 name: Java CI with Maven
 
 on:
-  pull_request:
-    branches: [ main, master ]
   push:
-    branches: [ main, master ]
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
 
 jobs:
   test:
@@ -12,11 +12,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16-alpine
+        image: postgres:17.6-alpine
         env:
-          POSTGRES_DB: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres_test
+          POSTGRES_USER: postgres_test
+          POSTGRES_PASSWORD: postgres_test
         ports:
           - 5432:5432
         options: >-
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Configure Java JDK
         uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -36,9 +36,9 @@ jobs:
           cache: 'maven'
 
       - name: Run Tests with Maven
-        run: mvn clean test
+        run: chmod +x mvnw
+
+      - name: Run test with test profile
         env:
-          DATABASE_URL: jdbc:postgresql://localhost:5432/postgres
-          DATADASE_USER: postgres
-          DATADASE_PASSWORD: postgres
-          GROQ_API_KEY: "mocked-key-for-test-purposes"
+          DB_PORT: 5432
+        run: ./mvnw clean test -Dspring.profiles.active=test
