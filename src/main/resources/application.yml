@@ -23,4 +23,4 @@ spring:
       chat:
         options:
           model: llama-3.1-8b-instant
-          temperature: 1.0 # 0.0 é mais robótico/exato, 1.0 é mais criativo
+          temperature: 1.0
