@@ -27,3 +27,7 @@ spring:
         options:
           model: llama-3.1-8b-instant
           temperature: 1.0
+
+app:
+  security:
+    api-key: ${API_KEY_SECRET}

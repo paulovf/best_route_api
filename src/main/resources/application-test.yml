@@ -7,3 +7,7 @@ spring:
 
   flyway:
     clean-disabled: false
+
+app:
+  security:
+    api-key: default-api-key-test
