@@ -1,0 +1,67 @@
+name: CI - Verify Version Bump
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-version:
+    name: Verify pom.xml Version Bump
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR Branch
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Get PR Version
+        id: pr_version
+        run: |
+          PR_VER=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "PR_VERSION=$PR_VER" >> $GITHUB_ENV
+          echo "Proposed version in PR: $PR_VER"
+
+      - name: Checkout Main Branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-branch
+
+      - name: Get Main Version
+        id: main_version
+        run: |
+          cd main-branch
+          MAIN_VER=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "MAIN_VERSION=$MAIN_VER" >> $GITHUB_ENV
+          echo "Current version in main: $MAIN_VER"
+
+      - name: Compare Versions
+        run: |
+          python3 -c "
+          import sys
+          
+          def parse_version(v_str):
+              base_version = v_str.split('-')[0]
+              return tuple(map(int, base_version.split('.')))
+          
+          try:
+              pr_v = parse_version('${{ env.PR_VERSION }}')
+              main_v = parse_version('${{ env.MAIN_VERSION }}')
+              
+              print(f'Comparing PR Version: {pr_v} with Main Version: {main_v}')
+              
+              if pr_v <= main_v:
+                  print('ERROR: The application version must be incremented before merging into main!')
+                  sys.exit(1)
+              else:
+                  print('SUCCESS: Version has been successfully incremented!')
+          except Exception as e:
+              print(f'ERROR: Could not parse versions. Make sure they follow the X.Y.Z format. Details: {e}')
+              sys.exit(1)
+          "
