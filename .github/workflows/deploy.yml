@@ -12,5 +12,13 @@ jobs:
       - name: Trigger Render Webhook
         run: |
           echo "Starting deployment to Render production environment..."
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+          
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" ]; then
+            echo "ERRO: The RENDER_DEPLOY_HOOK_URL secret is empty or not found in GitHub secrete env vars"
+            exit 1
+          fi
+          
+          curl -sS -f -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" --max-time 15
+          
+          echo ""
           echo "Deployment signal sent successfully!"
