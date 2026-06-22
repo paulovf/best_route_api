@@ -44,20 +44,24 @@ jobs:
       - name: Compare Versions
         run: |
           python3 -c "
-          from idna import unichr
           import sys
           
-          # Transforma strings '0.0.1' em tuplas de inteiros (0, 0, 1) para comparar matematicamente
           def parse_version(v_str):
-              return tuple(map(int, v_str.replace('-SNAPSHOT', '').split('.')))
+              base_version = v_str.split('-')[0]
+              return tuple(map(int, base_version.split('.')))
           
-          pr_v = parse_version('${{ env.PR_VERSION }}')
-          main_v = parse_version('${{ env.MAIN_VERSION }}')
-          
-          print(f'Comparing PR ({pr_v}) with Main ({main_v})')
-          if pr_v <= main_v:
-              print('ERROR: The application version must be incremented before merging into main!')
+          try:
+              pr_v = parse_version('${{ env.PR_VERSION }}')
+              main_v = parse_version('${{ env.MAIN_VERSION }}')
+              
+              print(f'Comparing PR Version: {pr_v} with Main Version: {main_v}')
+              
+              if pr_v <= main_v:
+                  print('ERROR: The application version must be incremented before merging into main!')
+                  sys.exit(1)
+              else:
+                  print('SUCCESS: Version has been successfully incremented!')
+          except Exception as e:
+              print(f'ERROR: Could not parse versions. Make sure they follow the X.Y.Z format. Details: {e}')
               sys.exit(1)
-          else:
-              print('SUCCESS: Version has been successfully incremented!')
           "
