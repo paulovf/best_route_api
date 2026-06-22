@@ -1,0 +1,16 @@
+name: CD - Manual Production Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-to-render:
+    name: Trigger Render Production Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render Webhook
+        run: |
+          echo "Starting deployment to Render production environment..."
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+          echo "Deployment signal sent successfully!"
