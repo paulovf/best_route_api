@@ -28,6 +28,10 @@ spring:
           model: llama-3.1-8b-instant
           temperature: 1.0
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
 app:
+  version: "@project.version@"
   security:
     api-key: ${API_KEY_SECRET}
