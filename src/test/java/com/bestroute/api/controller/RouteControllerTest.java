@@ -1,7 +1,7 @@
 package com.bestroute.api.controller;
 
-import com.bestroute.application.dto.RouteRequest;
-import com.bestroute.application.dto.RouteResponse;
+import com.bestroute.api.request.RouteRequest;
+import com.bestroute.api.response.RouteResponse;
 import com.bestroute.application.service.RouteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;

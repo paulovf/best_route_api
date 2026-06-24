@@ -1,6 +1,6 @@
 package com.bestroute.infraestructure.exception;
 
-import com.bestroute.application.dto.ValidationErrorResponse;
+import com.bestroute.api.response.ValidationErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

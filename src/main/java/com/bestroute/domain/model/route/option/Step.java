@@ -2,6 +2,7 @@ package com.bestroute.domain.model.route.option;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.math.BigDecimal;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -26,6 +27,8 @@ public class Step {
 	private String destinationArrival;
 
 	private Integer order;
+
+	private BigDecimal durationHours;
 
 	public Step() {
 	}
@@ -108,6 +111,14 @@ public class Step {
 
 	public void setOrder(Integer order) {
 		this.order = order;
+	}
+
+	public BigDecimal getDurationHours() {
+		return durationHours;
+	}
+
+	public void setDurationHours(BigDecimal durationHours) {
+		this.durationHours = durationHours;
 	}
 
 }

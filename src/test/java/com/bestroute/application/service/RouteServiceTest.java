@@ -1,7 +1,7 @@
 package com.bestroute.application.service;
 
-import com.bestroute.application.dto.RouteRequest;
-import com.bestroute.application.dto.RouteResponse;
+import com.bestroute.api.request.RouteRequest;
+import com.bestroute.api.response.RouteResponse;
 import com.bestroute.domain.repository.RouteRepository;
 import com.bestroute.domain.model.Route;
 import org.junit.jupiter.api.DisplayName;

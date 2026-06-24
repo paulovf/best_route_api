@@ -1,4 +1,4 @@
-package com.bestroute.application.dto;
+package com.bestroute.api.response;
 
 import com.bestroute.domain.model.route.Option;
 import java.time.OffsetDateTime;

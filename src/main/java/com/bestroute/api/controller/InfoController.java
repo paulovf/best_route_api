@@ -1,6 +1,6 @@
 package com.bestroute.api.controller;
 
-import com.bestroute.application.dto.ApiInfoResponse;
+import com.bestroute.api.response.ApiInfoResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
