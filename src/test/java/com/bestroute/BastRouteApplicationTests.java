@@ -5,15 +5,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class BastRouteApplicationTests extends BaseIntegrationTest {
-//    @Test
-//    void deveBuscarRotasComSucessoQuandoChaveForValida() throws Exception {
-//        mockMvc.perform(get("/actuator/health"))
-//            .andExpect(status().isOk());
-//    }
 
-    @Test
-    void deveRetornar403QuandoNaoEnviarAChave() throws Exception {
-        mockMvc.perform(get("/api/routes"))
-            .andExpect(status().isNotFound());
-    }
+	@Test
+	void deveBuscarRotasComSucessoQuandoChaveForValida() throws Exception {
+		mockMvc.perform(get("/api/v1/info")).andExpect(status().isOk());
+	}
+
+	@Test
+	void deveRetornar403QuandoNaoEnviarAChave() throws Exception {
+		mockMvc.perform(get("/api/routes")).andExpect(status().isNotFound());
+	}
+
 }

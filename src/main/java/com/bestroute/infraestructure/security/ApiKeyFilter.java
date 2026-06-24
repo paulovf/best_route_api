@@ -12,33 +12,30 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class ApiKeyFilter extends OncePerRequestFilter {
-  private final String expectedApiKey;
 
-  public ApiKeyFilter(String expectedApiKey) {
-    this.expectedApiKey = expectedApiKey;
-  }
+	private final String expectedApiKey;
 
-  @Override
-  protected void doFilterInternal(
-      @NonNull HttpServletRequest request,
-      @NonNull HttpServletResponse response,
-      @NonNull FilterChain filterChain) throws ServletException, IOException {
+	public ApiKeyFilter(String expectedApiKey) {
+		this.expectedApiKey = expectedApiKey;
+	}
 
-    String requestKey = request.getHeader("X-API-KEY");
+	@Override
+	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+			@NonNull FilterChain filterChain) throws ServletException, IOException {
 
-    if (expectedApiKey.equals(requestKey)) {
-      var authentication = new UsernamePasswordAuthenticationToken(
-          "M2M_APP",
-          null,
-          Collections.emptyList()
-      );
-      SecurityContextHolder.getContext().setAuthentication(authentication);
-    } else if (requestKey != null) {
-      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      response.getWriter().write("Invalid api key.");
-      return;
-    }
+		String requestKey = request.getHeader("X-API-KEY");
 
-    filterChain.doFilter(request, response);
-  }
+		if (expectedApiKey.equals(requestKey)) {
+			var authentication = new UsernamePasswordAuthenticationToken("M2M_APP", null, Collections.emptyList());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		}
+		else if (requestKey != null) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.getWriter().write("Invalid api key.");
+			return;
+		}
+
+		filterChain.doFilter(request, response);
+	}
+
 }

@@ -8,52 +8,58 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Option {
-  private Integer totalKilometers;
-  private BigDecimal totalAmount;
-  private Integer order;
-  private String description;
-  private List<Step> steps;
 
-  public Option() {
-  }
+	private Integer totalKilometers;
 
-  public Integer getTotalKilometers() {
-    return totalKilometers;
-  }
+	private BigDecimal totalAmount;
 
-  public void setTotalKilometers(Integer totalKilometers) {
-    this.totalKilometers = totalKilometers;
-  }
+	private Integer order;
 
-  public BigDecimal getTotalAmount() {
-    return totalAmount;
-  }
+	private String description;
 
-  public void setTotalAmount(BigDecimal totalAmount) {
-    this.totalAmount = totalAmount;
-  }
+	private List<Step> steps;
 
-  public Integer getOrder() {
-    return order;
-  }
+	public Option() {
+	}
 
-  public void setOrder(Integer order) {
-    this.order = order;
-  }
+	public Integer getTotalKilometers() {
+		return totalKilometers;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setTotalKilometers(Integer totalKilometers) {
+		this.totalKilometers = totalKilometers;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
 
-  public List<Step> getSteps() {
-    return steps;
-  }
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 
-  public void setSteps(List<Step> steps) {
-    this.steps = steps;
-  }
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Step> getSteps() {
+		return steps;
+	}
+
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
+	}
+
 }

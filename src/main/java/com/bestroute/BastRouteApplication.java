@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServic
 @SpringBootApplication(exclude = { UserDetailsServiceAutoConfiguration.class })
 public class BastRouteApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(BastRouteApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(BastRouteApplication.class, args);
+	}
 
 }
