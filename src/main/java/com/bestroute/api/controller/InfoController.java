@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/v1/info")
 public class InfoController {
 
-  @Value("${app.version}")
-  private String appVersion;
+	@Value("${app.version}")
+	private String appVersion;
 
-  @GetMapping
-  public ResponseEntity<ApiInfoResponse> getApiInfo() {
-    ApiInfoResponse info = new ApiInfoResponse("BestRoute API", this.appVersion, "UP", LocalDateTime.now());
+	@GetMapping
+	public ResponseEntity<ApiInfoResponse> getApiInfo() {
+		ApiInfoResponse info = new ApiInfoResponse("BestRoute API", this.appVersion, "UP", LocalDateTime.now());
 
-    return ResponseEntity.ok(info);
-  }
+		return ResponseEntity.ok(info);
+	}
 
 }
