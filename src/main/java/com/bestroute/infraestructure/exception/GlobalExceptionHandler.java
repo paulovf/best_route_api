@@ -26,7 +26,6 @@ public class GlobalExceptionHandler {
 			errors.put(snakeCaseFieldName, errorMessage);
 		});
 
-		// Monta o DTO de resposta customizado
 		ValidationErrorResponse errorResponse = new ValidationErrorResponse(LocalDateTime.now(),
 				HttpStatus.BAD_REQUEST.value(), "Request fields invalids", errors);
 
