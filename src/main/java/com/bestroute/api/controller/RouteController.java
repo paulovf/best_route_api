@@ -13,17 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/routes")
 public class RouteController {
-  private final RouteService routeService;
 
-  // Injeção via construtor
-  public RouteController(RouteService routeService) {
-    this.routeService = routeService;
-  }
+	private final RouteService routeService;
 
-  @PostMapping("/search")
-  public ResponseEntity<RouteResponse> searchRoute(@Valid @RequestBody RouteRequest request) {
-    RouteResponse response = routeService.getOrCreateRoute(request);
+	// Injeção via construtor
+	public RouteController(RouteService routeService) {
+		this.routeService = routeService;
+	}
 
-    return ResponseEntity.ok(response);
-  }
+	@PostMapping("/search")
+	public ResponseEntity<RouteResponse> searchRoute(@Valid @RequestBody RouteRequest request) {
+		RouteResponse response = routeService.getOrCreateRoute(request);
+
+		return ResponseEntity.ok(response);
+	}
+
 }

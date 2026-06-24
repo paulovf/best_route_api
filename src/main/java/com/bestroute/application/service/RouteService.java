@@ -12,58 +12,50 @@ import java.util.Optional;
 
 @Service
 public class RouteService {
-  private final RouteRepository routeRepository;
 
-  public RouteService(RouteRepository routeRepository) {
-    this.routeRepository = routeRepository;
-  }
+	private final RouteRepository routeRepository;
 
-  @Transactional
-  public RouteResponse getOrCreateRoute(RouteRequest request) {
-    Optional<Route> existingRoute = routeRepository.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-        request.originCity().trim(),
-        request.originState().toUpperCase().trim(),
-        request.destinationCity().trim(),
-        request.destinationState().toUpperCase().trim(),
-        request.travelDate()
-    );
+	public RouteService(RouteRepository routeRepository) {
+		this.routeRepository = routeRepository;
+	}
 
-    return existingRoute
-        .map(this::mapToResponse)
-        .orElseGet(() -> searchRote(request));
-  }
+	@Transactional
+	public RouteResponse getOrCreateRoute(RouteRequest request) {
+		Optional<Route> existingRoute = routeRepository
+			.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
+					request.originCity().trim(), request.originState().toUpperCase().trim(),
+					request.destinationCity().trim(), request.destinationState().toUpperCase().trim(),
+					request.travelDate());
 
-  private RouteResponse mapToResponse(Route route) {
-    return new RouteResponse(
-        route.getId(),
-        route.getOriginCity(),
-        route.getOriginState(),
-        route.getDestinationCity(),
-        route.getDestinationState(),
-        route.getTravelDate(),
-        route.getApiResponse()
-    );
-  }
+		return existingRoute.map(this::mapToResponse).orElseGet(() -> searchRote(request));
+	}
 
-  private RouteResponse searchRote(RouteRequest request) {
-    Route newRoute = createRote(request);
+	private RouteResponse mapToResponse(Route route) {
+		return new RouteResponse(route.getId(), route.getOriginCity(), route.getOriginState(),
+				route.getDestinationCity(), route.getDestinationState(), route.getTravelDate(), route.getApiResponse());
+	}
 
-    // Colocamos uma lista vazia temporária por enquanto, já que não chamamos a IA ainda
-    newRoute.setApiResponse(new ArrayList<>());
+	private RouteResponse searchRote(RouteRequest request) {
+		Route newRoute = createRote(request);
 
-    Route savedRoute = routeRepository.save(newRoute);
+		// Colocamos uma lista vazia temporária por enquanto, já que não chamamos a IA
+		// ainda
+		newRoute.setApiResponse(new ArrayList<>());
 
-    return mapToResponse(savedRoute);
-  }
+		Route savedRoute = routeRepository.save(newRoute);
 
-  private Route createRote(RouteRequest request) {
-    Route newRoute = new Route();
-    newRoute.setOriginCity(request.originCity().trim());
-    newRoute.setOriginState(request.originState().toUpperCase().trim());
-    newRoute.setDestinationCity(request.destinationCity().trim());
-    newRoute.setDestinationState(request.destinationState().toUpperCase().trim());
-    newRoute.setTravelDate(request.travelDate());
+		return mapToResponse(savedRoute);
+	}
 
-    return newRoute;
-  }
+	private Route createRote(RouteRequest request) {
+		Route newRoute = new Route();
+		newRoute.setOriginCity(request.originCity().trim());
+		newRoute.setOriginState(request.originState().toUpperCase().trim());
+		newRoute.setDestinationCity(request.destinationCity().trim());
+		newRoute.setDestinationState(request.destinationState().toUpperCase().trim());
+		newRoute.setTravelDate(request.travelDate());
+
+		return newRoute;
+	}
+
 }

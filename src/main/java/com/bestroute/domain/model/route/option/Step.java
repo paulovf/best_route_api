@@ -6,97 +6,108 @@ import java.math.BigDecimal;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Step {
-  private String transportType;
-  private BigDecimal kilometers;
-  private BigDecimal averageAmount;
-  private String originCity;
-  private String originState;
-  private String originDeparture;
-  private String destinationCity;
-  private String destinationState;
-  private String destinationArrival;
-  private Integer order;
 
-  public Step() {
-  }
+	private String transportType;
 
-  public String getTransportType() {
-    return transportType;
-  }
+	private BigDecimal kilometers;
 
-  public void setTransportType(String transportType) {
-    this.transportType = transportType;
-  }
+	private BigDecimal averageAmount;
 
-  public BigDecimal getKilometers() {
-    return kilometers;
-  }
+	private String originCity;
 
-  public void setKilometers(BigDecimal kilometers) {
-    this.kilometers = kilometers;
-  }
+	private String originState;
 
-  public BigDecimal getAverageAmount() {
-    return averageAmount;
-  }
+	private String originDeparture;
 
-  public void setAverageAmount(BigDecimal averageAmount) {
-    this.averageAmount = averageAmount;
-  }
+	private String destinationCity;
 
-  public String getOriginCity() {
-    return originCity;
-  }
+	private String destinationState;
 
-  public void setOriginCity(String originCity) {
-    this.originCity = originCity;
-  }
+	private String destinationArrival;
 
-  public String getOriginState() {
-    return originState;
-  }
+	private Integer order;
 
-  public void setOriginState(String originState) {
-    this.originState = originState;
-  }
+	public Step() {
+	}
 
-  public String getOriginDeparture() {
-    return originDeparture;
-  }
+	public String getTransportType() {
+		return transportType;
+	}
 
-  public void setOriginDeparture(String originDeparture) {
-    this.originDeparture = originDeparture;
-  }
+	public void setTransportType(String transportType) {
+		this.transportType = transportType;
+	}
 
-  public String getDestinationCity() {
-    return destinationCity;
-  }
+	public BigDecimal getKilometers() {
+		return kilometers;
+	}
 
-  public void setDestinationCity(String destinationCity) {
-    this.destinationCity = destinationCity;
-  }
+	public void setKilometers(BigDecimal kilometers) {
+		this.kilometers = kilometers;
+	}
 
-  public String getDestinationState() {
-    return destinationState;
-  }
+	public BigDecimal getAverageAmount() {
+		return averageAmount;
+	}
 
-  public void setDestinationState(String destinationState) {
-    this.destinationState = destinationState;
-  }
+	public void setAverageAmount(BigDecimal averageAmount) {
+		this.averageAmount = averageAmount;
+	}
 
-  public String getDestinationArrival() {
-    return destinationArrival;
-  }
+	public String getOriginCity() {
+		return originCity;
+	}
 
-  public void setDestinationArrival(String destinationArrival) {
-    this.destinationArrival = destinationArrival;
-  }
+	public void setOriginCity(String originCity) {
+		this.originCity = originCity;
+	}
 
-  public Integer getOrder() {
-    return order;
-  }
+	public String getOriginState() {
+		return originState;
+	}
 
-  public void setOrder(Integer order) {
-    this.order = order;
-  }
+	public void setOriginState(String originState) {
+		this.originState = originState;
+	}
+
+	public String getOriginDeparture() {
+		return originDeparture;
+	}
+
+	public void setOriginDeparture(String originDeparture) {
+		this.originDeparture = originDeparture;
+	}
+
+	public String getDestinationCity() {
+		return destinationCity;
+	}
+
+	public void setDestinationCity(String destinationCity) {
+		this.destinationCity = destinationCity;
+	}
+
+	public String getDestinationState() {
+		return destinationState;
+	}
+
+	public void setDestinationState(String destinationState) {
+		this.destinationState = destinationState;
+	}
+
+	public String getDestinationArrival() {
+		return destinationArrival;
+	}
+
+	public void setDestinationArrival(String destinationArrival) {
+		this.destinationArrival = destinationArrival;
+	}
+
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
 }

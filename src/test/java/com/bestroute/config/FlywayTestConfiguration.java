@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile("test")
-public class FlywayTestConfiguration {
+class FlywayTestConfiguration {
 
-    @Bean
-    public FlywayMigrationStrategy cleanMigrateStrategy() {
-        return flyway -> {
-            flyway.clean();
-            flyway.migrate();
-        };
-    }
+	@Bean
+	public FlywayMigrationStrategy cleanMigrateStrategy() {
+		return flyway -> {
+			flyway.clean();
+			flyway.migrate();
+		};
+	}
+
 }

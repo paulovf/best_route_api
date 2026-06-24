@@ -5,12 +5,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public record RouteResponse(
-    UUID id,
-    String originCity,
-    String originState,
-    String destinationCity,
-    String destinationState,
-    OffsetDateTime travelDate,
-    List<Option> options
-) {}
+public record RouteResponse(UUID id, String originCity, String originState, String destinationCity,
+		String destinationState, OffsetDateTime travelDate, List<Option> options) {
+}

@@ -14,25 +14,23 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ValidationErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-    Map<String, String> errors = new HashMap<>();
 
-    ex.getBindingResult().getAllErrors().forEach((error) -> {
-      String fieldName = ((FieldError) error).getField();
-      String snakeCaseFieldName = fieldName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
-      String errorMessage = error.getDefaultMessage();
-      errors.put(snakeCaseFieldName, errorMessage);
-    });
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ValidationErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
 
-    // Monta o DTO de resposta customizado
-    ValidationErrorResponse errorResponse = new ValidationErrorResponse(
-        LocalDateTime.now(),
-        HttpStatus.BAD_REQUEST.value(),
-        "Request fields invalids",
-        errors
-    );
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String fieldName = ((FieldError) error).getField();
+			String snakeCaseFieldName = fieldName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+			String errorMessage = error.getDefaultMessage();
+			errors.put(snakeCaseFieldName, errorMessage);
+		});
 
-    return ResponseEntity.badRequest().body(errorResponse);
-  }
+		// Monta o DTO de resposta customizado
+		ValidationErrorResponse errorResponse = new ValidationErrorResponse(LocalDateTime.now(),
+				HttpStatus.BAD_REQUEST.value(), "Request fields invalids", errors);
+
+		return ResponseEntity.badRequest().body(errorResponse);
+	}
+
 }
