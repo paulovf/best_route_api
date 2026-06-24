@@ -16,7 +16,6 @@ public class RouteController {
 
 	private final RouteService routeService;
 
-	// Injeção via construtor
 	public RouteController(RouteService routeService) {
 		this.routeService = routeService;
 	}
