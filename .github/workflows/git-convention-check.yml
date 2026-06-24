@@ -12,13 +12,13 @@ jobs:
         run: |
           BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
           
-          REGEX_BRANCH="^(feat|fix|hotfix)[\/-].+$"
+          REGEX_BRANCH="^(feat|fix|hotfix|feature|qa)[\/-].+$"
           
           if [[ ! "$BRANCH_NAME" =~ $REGEX_BRANCH ]]; then
             echo "=========================================================================="
             echo "ERROR: Invalid branch name!"
             echo "Your branch: '$BRANCH_NAME'"
-            echo "The branch name must strictly start with: feat/, fix/, or hotfix/"
+            echo "The branch name must strictly start with: feat/, feature/, fix/, or hotfix/"
             echo "Valid examples: feat/add-groq-service, fix/error-404-route"
             echo "=========================================================================="
             exit 1
@@ -29,7 +29,7 @@ jobs:
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
           
-          REGEX_TITLE="^(feat|fix|hotfix): .+$"
+          REGEX_TITLE="^(feat|fix|hotfix|feature): .+$"
           
           if [[ ! "$PR_TITLE" =~ $REGEX_TITLE ]]; then
             echo "=========================================================================="
