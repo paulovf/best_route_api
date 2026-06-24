@@ -80,7 +80,6 @@ class RouteControllerTest {
 				}
 				""".formatted(now.toString());
 
-		// Act & Assert
 		mockMvc.perform(
 				post("/api/v1/routes/search").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(invalidJson))
 			.andExpect(status().isBadRequest())
