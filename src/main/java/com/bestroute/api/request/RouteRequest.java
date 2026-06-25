@@ -13,7 +13,7 @@ public record RouteRequest(@NotBlank(message = "The origin city is required") St
 		@NotBlank(message = "The destination city is required") String destinationCity,
 
 		@NotBlank(message = "The destination state is required") @Size(min = 2, max = 2,
-				message = "The origin state must have 2 letters") String destinationState,
+				message = "The destination state must have 2 letters") String destinationState,
 
 		@NotNull(message = "The travel date is required") OffsetDateTime travelDate) {
 }

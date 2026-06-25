@@ -36,6 +36,8 @@ class RouteControllerTest {
 	@MockBean
 	private RouteService routeService;
 
+	private static final String MOCK_API_KEY = "super-secret-api-key-123";
+
 	@Test
 	@WithMockUser
 	@DisplayName("When passing valid params, return HTTP status 200")
@@ -55,8 +57,11 @@ class RouteControllerTest {
 				}
 				""".formatted(now.toString());
 
-		mockMvc.perform(
-				post("/api/v1/routes/search").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(validJson))
+		mockMvc
+			.perform(post("/api/v1/routes/search").with(csrf())
+				.header("X-API-KEY", MOCK_API_KEY)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(validJson))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.origin_city").value("São Paulo"))
 			.andExpect(jsonPath("$.origin_state").value("SP"))
@@ -80,8 +85,11 @@ class RouteControllerTest {
 				}
 				""".formatted(now.toString());
 
-		mockMvc.perform(
-				post("/api/v1/routes/search").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(invalidJson))
+		mockMvc
+			.perform(post("/api/v1/routes/search").with(csrf())
+				.header("X-API-KEY", MOCK_API_KEY)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(invalidJson))
 			.andExpect(status().isBadRequest())
 			.andExpect(jsonPath("$.message").value("Request fields invalids"))
 			.andExpect(jsonPath("$.errors.origin_state").exists())

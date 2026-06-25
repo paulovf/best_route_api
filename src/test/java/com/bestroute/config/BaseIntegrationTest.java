@@ -1,4 +1,4 @@
-package com.bestroute;
+package com.bestroute.config;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

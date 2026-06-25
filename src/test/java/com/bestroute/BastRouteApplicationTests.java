@@ -1,5 +1,6 @@
 package com.bestroute;
 
+import com.bestroute.config.BaseIntegrationTest;
 import org.junit.jupiter.api.Test;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

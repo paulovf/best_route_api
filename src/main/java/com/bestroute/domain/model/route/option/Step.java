@@ -140,4 +140,5 @@ public class Step {
 	public void setDurationHours(BigDecimal durationHours) {
 		this.durationHours = durationHours;
 	}
+
 }
