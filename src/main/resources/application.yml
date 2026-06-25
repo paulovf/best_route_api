@@ -21,12 +21,12 @@ spring:
 
   ai:
     openai:
-      api-key: ${GROQ_API_KEY}
-      base-url: https://api.groq.com/openai/v1
+      api-key: ${GEMINI_API_KEY}
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai
       chat:
         options:
-          model: llama-3.1-8b-instant
-          temperature: 1.0
+          model: gemini-2.5-flash
+          temperature: 0.1
 
   jackson:
     property-naming-strategy: SNAKE_CASE

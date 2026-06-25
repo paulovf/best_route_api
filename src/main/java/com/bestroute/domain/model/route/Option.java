@@ -3,6 +3,7 @@ package com.bestroute.domain.model.route;
 import com.bestroute.domain.model.route.option.Step;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Option {
 	private String description;
 
 	private List<Step> steps;
+
+	private BigDecimal totalDurationHours;
 
 	public Option() {
 	}
@@ -60,6 +63,14 @@ public class Option {
 
 	public void setSteps(List<Step> steps) {
 		this.steps = steps;
+	}
+
+	public BigDecimal getTotalDurationHours() {
+		return totalDurationHours;
+	}
+
+	public void setTotalDurationHours(BigDecimal totalDurationHours) {
+		this.totalDurationHours = totalDurationHours;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.bestroute.application.dto;
+package com.bestroute.api.response;
 
 import java.time.LocalDateTime;
 import java.util.Map;

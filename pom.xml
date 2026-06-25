@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.bestroute</groupId>
     <artifactId>bestroute-api</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <name>Bast Route</name>
     <description>Bast Route</description>
     <url/>
@@ -58,10 +58,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -103,8 +105,7 @@
             <dependency>
                 <groupId>org.springframework.ai</groupId>
                 <artifactId>spring-ai-bom</artifactId>
-                <version>1.0.0-M5</version>
-                <type>pom</type>
+                <version>1.0.0-M6</version> <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
