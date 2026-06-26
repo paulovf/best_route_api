@@ -1,4 +1,4 @@
-package com.bestroute;
+package com.bestroute.config;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +18,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @AutoConfigureMockMvc
 public abstract class BaseIntegrationTest {
-  protected MockMvc mockMvc;
 
-  @Autowired
-  private WebApplicationContext context;
+	protected MockMvc mockMvc;
 
-  @Value("${app.security.api-key}")
-  private String apiKey;
+	@Autowired
+	private WebApplicationContext context;
 
-  @BeforeEach
-  void setup() {
-    this.mockMvc = MockMvcBuilders
-        .webAppContextSetup(context)
-        .apply(springSecurity())
-        .defaultRequest(get("/").header("X-API-KEY", apiKey))
-        .build();
-  }
+	@Value("${app.security.api-key}")
+	private String apiKey;
+
+	@BeforeEach
+	void setup() {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
+			.apply(springSecurity())
+			.defaultRequest(get("/").header("X-API-KEY", apiKey))
+			.build();
+	}
+
 }

@@ -8,6 +8,10 @@ spring:
   flyway:
     clean-disabled: false
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
 app:
+  version: "@project.version@"
   security:
     api-key: default-api-key-test

@@ -24,138 +24,135 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 @Transactional
 class RouteRepositoryTest {
-  @Autowired
-  private RouteRepository routeRepository;
 
-  private Route validRoute;
+	@Autowired
+	private RouteRepository routeRepository;
 
-  @BeforeEach
-  void setUp() {
-    routeRepository.deleteAll();
+	private Route validRoute;
 
-    validRoute = createBaseValidRoute();
-  }
+	@BeforeEach
+	void setUp() {
+		routeRepository.deleteAll();
 
-  @Test
-  @DisplayName("When passing invalid params, return error")
-  void shouldThrowExceptionWhenFieldsAreNull() {
-    Route invalidRoute = new Route();
+		validRoute = createBaseValidRoute();
+	}
 
-    assertThrows(Exception.class, () -> {
-      routeRepository.saveAndFlush(invalidRoute);
-    });
-  }
+	@Test
+	@DisplayName("When passing invalid params, return error")
+	void shouldThrowExceptionWhenFieldsAreNull() {
+		Route invalidRoute = new Route();
 
-  @Test
-  @DisplayName("When passing invalid params, return error")
-  void shouldThrowExceptionWhenFieldsAreInvalid() {
-    validRoute.setOriginState("SP-EXTENSO");
+		assertThrows(Exception.class, () -> {
+			routeRepository.saveAndFlush(invalidRoute);
+		});
+	}
 
-    assertThrows(ConstraintViolationException.class, () -> {
-      routeRepository.saveAndFlush(validRoute);
-    });
-  }
+	@Test
+	@DisplayName("When passing invalid params, return error")
+	void shouldThrowExceptionWhenFieldsAreInvalid() {
+		validRoute.setOriginState("SP-EXTENSO");
 
-  @Test
-  @DisplayName("When option not exist, return empty list")
-  void shouldReturnEmptyWhenFindWithInvalidOrNonExistentFields() {
-    Optional<Route> result = routeRepository
-        .findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-            "Belo Horizonte", "MG", "Curitiba", "PR", OffsetDateTime.now()
-        );
+		assertThrows(ConstraintViolationException.class, () -> {
+			routeRepository.saveAndFlush(validRoute);
+		});
+	}
 
-    assertThat(result).isEmpty();
-  }
+	@Test
+	@DisplayName("When option not exist, return empty list")
+	void shouldReturnEmptyWhenFindWithInvalidOrNonExistentFields() {
+		Optional<Route> result = routeRepository
+			.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate("Belo Horizonte", "MG",
+					"Curitiba", "PR", OffsetDateTime.now());
 
-  @Test
-  @DisplayName("When passing valid params, save a route")
-  void shouldSaveRouteWithValidFieldsSuccess() {
-    Route savedRoute = routeRepository.saveAndFlush(validRoute);
+		assertThat(result).isEmpty();
+	}
 
-    assertThat(savedRoute.getId()).isNotNull();
-    assertThat(savedRoute.getOriginCity()).isEqualTo("São Paulo");
-  }
+	@Test
+	@DisplayName("When passing valid params, save a route")
+	void shouldSaveRouteWithValidFieldsSuccess() {
+		Route savedRoute = routeRepository.saveAndFlush(validRoute);
 
-  @Test
-  @DisplayName("When passing valid params, save a option and list in order by asc")
-  void shouldSaveMultipleOptionsAndStepsAndReturnThemSortedByOrderAscending() {
-    Step step2 = createBaseStep("bus", 2);
-    Step step1 = createBaseStep("plane", 1);
+		assertThat(savedRoute.getId()).isNotNull();
+		assertThat(savedRoute.getOriginCity()).isEqualTo("São Paulo");
+	}
 
-    Option option2 = createBaseOption("Opção mais demorada", 2, List.of(step2));
-    Option option1 = createBaseOption("Opção mais rápida", 1, List.of(step1));
+	@Test
+	@DisplayName("When passing valid params, save a option and list in order by asc")
+	void shouldSaveMultipleOptionsAndStepsAndReturnThemSortedByOrderAscending() {
+		Step step2 = createBaseStep("bus", 2);
+		Step step1 = createBaseStep("plane", 1);
 
-    validRoute.setApiResponse(new ArrayList<>(List.of(option2, option1)));
+		Option option2 = createBaseOption("Opção mais demorada", 2, List.of(step2));
+		Option option1 = createBaseOption("Opção mais rápida", 1, List.of(step1));
 
-    Route savedRoute = routeRepository.saveAndFlush(validRoute);
+		validRoute.setApiResponse(new ArrayList<>(List.of(option2, option1)));
 
-    Route retrievedRoute = routeRepository.findById(savedRoute.getId()).orElseThrow();
-    List<Option> optionsFromDb = retrievedRoute.getApiResponse();
+		Route savedRoute = routeRepository.saveAndFlush(validRoute);
 
-    optionsFromDb.sort(Comparator.comparing(Option::getOrder));
+		Route retrievedRoute = routeRepository.findById(savedRoute.getId()).orElseThrow();
+		List<Option> optionsFromDb = retrievedRoute.getApiResponse();
 
-    assertThat(optionsFromDb.get(0).getOrder()).isEqualTo(1);
-    assertThat(optionsFromDb.get(1).getOrder()).isEqualTo(2);
+		optionsFromDb.sort(Comparator.comparing(Option::getOrder));
 
-    assertThat(optionsFromDb.getFirst().getDescription()).isEqualTo("Opção mais rápida");
-  }
+		assertThat(optionsFromDb.get(0).getOrder()).isEqualTo(1);
+		assertThat(optionsFromDb.get(1).getOrder()).isEqualTo(2);
 
-  @Test
-  @DisplayName("When passing valid params, return a valid route list")
-  void shouldFindRouteUsingCustomRepositoryMethod() {
-    routeRepository.saveAndFlush(validRoute);
+		assertThat(optionsFromDb.getFirst().getDescription()).isEqualTo("Opção mais rápida");
+	}
 
-    Optional<Route> retrievedRouteOpt = routeRepository
-        .findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-            validRoute.getOriginCity(),
-            validRoute.getOriginState(),
-            validRoute.getDestinationCity(),
-            validRoute.getDestinationState(),
-            validRoute.getTravelDate()
-        );
+	@Test
+	@DisplayName("When passing valid params, return a valid route list")
+	void shouldFindRouteUsingCustomRepositoryMethod() {
+		routeRepository.saveAndFlush(validRoute);
 
-    assertThat(retrievedRouteOpt).isPresent();
-    Route retrievedRoute = retrievedRouteOpt.get();
-    assertThat(retrievedRoute.getOriginCity()).isEqualTo("São Paulo");
-    assertThat(retrievedRoute.getDestinationCity()).isEqualTo("Rio de Janeiro");
-  }
+		Optional<Route> retrievedRouteOpt = routeRepository
+			.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
+					validRoute.getOriginCity(), validRoute.getOriginState(), validRoute.getDestinationCity(),
+					validRoute.getDestinationState(), validRoute.getTravelDate());
 
-  private Route createBaseValidRoute() {
-    Step step = createBaseStep("car", 1);
-    Option option = createBaseOption("Rota Padrão", 1, List.of(step));
+		assertThat(retrievedRouteOpt).isPresent();
+		Route retrievedRoute = retrievedRouteOpt.get();
+		assertThat(retrievedRoute.getOriginCity()).isEqualTo("São Paulo");
+		assertThat(retrievedRoute.getDestinationCity()).isEqualTo("Rio de Janeiro");
+	}
 
-    Route route = new Route();
-    route.setOriginCity("São Paulo");
-    route.setOriginState("SP");
-    route.setDestinationCity("Rio de Janeiro");
-    route.setDestinationState("RJ");
-    route.setTravelDate(OffsetDateTime.parse("2026-12-25T12:00:00Z"));
-    route.setApiResponse(List.of(option));
-    return route;
-  }
+	private Route createBaseValidRoute() {
+		Step step = createBaseStep("car", 1);
+		Option option = createBaseOption("Rota Padrão", 1, List.of(step));
 
-  private Option createBaseOption(String desc, int order, List<Step> steps) {
-    Option option = new Option();
-    option.setDescription(desc);
-    option.setOrder(order);
-    option.setTotalKilometers(100);
-    option.setTotalAmount(new BigDecimal("50.00"));
-    option.setSteps(steps);
-    return option;
-  }
+		Route route = new Route();
+		route.setOriginCity("São Paulo");
+		route.setOriginState("SP");
+		route.setDestinationCity("Rio de Janeiro");
+		route.setDestinationState("RJ");
+		route.setTravelDate(OffsetDateTime.parse("2026-12-25T12:00:00Z"));
+		route.setApiResponse(List.of(option));
+		return route;
+	}
 
-  private Step createBaseStep(String transport, int order) {
-    Step step = new Step();
-    step.setTransportType(transport);
-    step.setKilometers(new BigDecimal("100.0"));
-    step.setAverageAmount(new BigDecimal("50.00"));
-    step.setOriginCity("Cidade A");
-    step.setOriginState("AA");
-    step.setOriginDeparture("Terminal A");
-    step.setDestinationCity("Cidade B");
-    step.setDestinationState("BB");
-    step.setDestinationArrival("Terminal B");
-    step.setOrder(order);
-    return step;
-  }
+	private Option createBaseOption(String desc, int order, List<Step> steps) {
+		Option option = new Option();
+		option.setDescription(desc);
+		option.setOrder(order);
+		option.setTotalKilometers(100);
+		option.setTotalAmount(new BigDecimal("50.00"));
+		option.setSteps(steps);
+		return option;
+	}
+
+	private Step createBaseStep(String transport, int order) {
+		Step step = new Step();
+		step.setTransportType(transport);
+		step.setKilometers(new BigDecimal("100.0"));
+		step.setAverageAmount(new BigDecimal("50.00"));
+		step.setOriginCity("Cidade A");
+		step.setOriginState("AA");
+		step.setOriginDeparture("Terminal A");
+		step.setDestinationCity("Cidade B");
+		step.setDestinationState("BB");
+		step.setDestinationArrival("Terminal B");
+		step.setOrder(order);
+		return step;
+	}
+
 }

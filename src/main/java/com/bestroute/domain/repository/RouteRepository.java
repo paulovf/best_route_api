@@ -10,11 +10,8 @@ import java.util.UUID;
 
 @Repository
 public interface RouteRepository extends JpaRepository<Route, UUID> {
-  Optional<Route> findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-      String originCity,
-      String originState,
-      String destinationCity,
-      String destinationState,
-      OffsetDateTime travelDate
-  );
+
+	Optional<Route> findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(String originCity,
+			String originState, String destinationCity, String destinationState, OffsetDateTime travelDate);
+
 }

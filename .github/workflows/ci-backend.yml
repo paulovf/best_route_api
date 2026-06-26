@@ -37,6 +37,9 @@ jobs:
 
       - name: Run Tests with Maven
         run: chmod +x mvnw
+        
+      - name: Check Code Formatting
+        run: ./mvnw spring-javaformat:validate
 
       - name: Run test with test profile
         env:
