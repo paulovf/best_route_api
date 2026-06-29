@@ -35,7 +35,8 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(RouteGenerationException.class)
-	public ResponseEntity<Map<String, Object>> handleRouteGenerationException(RouteGenerationException ex, HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> handleRouteGenerationException(RouteGenerationException ex,
+			HttpServletRequest request) {
 		Map<String, Object> body = new LinkedHashMap<>();
 
 		body.put("timestamp", LocalDateTime.now());

@@ -144,7 +144,11 @@ If you manage an isolated environment for testing using Docker Compose, you can 
      ```bash
      mvn test -Dtest=RouteRepositoryTest#shouldThrowExceptionWhenFieldsAreNull
      ```
-
+   * **Format and validate code:**
+     ```bash
+     ./mvnw spring-javaformat:apply
+     ./mvnw spring-javaformat:validate
+     ```
 ---
 
 ## 📖 API Documentation (Endpoints)
