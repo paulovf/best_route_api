@@ -40,11 +40,9 @@ public class RouteService {
 
 	@Transactional
 	public RouteResponse getOrCreateRoute(RouteRequest request) {
-		Optional<Route> existingRoute = routeRepository
-			.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-					request.originCity().trim(), request.originState().toUpperCase().trim(),
-					request.destinationCity().trim(), request.destinationState().toUpperCase().trim(),
-					request.travelDate());
+		Optional<Route> existingRoute = routeRepository.find(request.originCity().trim(),
+				request.originState().toUpperCase().trim(), request.destinationCity().trim(),
+				request.destinationState().toUpperCase().trim(), request.travelDate());
 
 		return existingRoute.map(this::mapToResponse).orElseGet(() -> searchRote(request));
 	}

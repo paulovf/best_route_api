@@ -60,9 +60,7 @@ class RouteRepositoryTest {
 	@Test
 	@DisplayName("When option not exist, return empty list")
 	void shouldReturnEmptyWhenFindWithInvalidOrNonExistentFields() {
-		Optional<Route> result = routeRepository
-			.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate("Belo Horizonte", "MG",
-					"Curitiba", "PR", OffsetDateTime.now());
+		Optional<Route> result = routeRepository.find("Belo Horizonte", "MG", "Curitiba", "PR", OffsetDateTime.now());
 
 		assertThat(result).isEmpty();
 	}
@@ -105,10 +103,9 @@ class RouteRepositoryTest {
 	void shouldFindRouteUsingCustomRepositoryMethod() {
 		routeRepository.saveAndFlush(validRoute);
 
-		Optional<Route> retrievedRouteOpt = routeRepository
-			.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-					validRoute.getOriginCity(), validRoute.getOriginState(), validRoute.getDestinationCity(),
-					validRoute.getDestinationState(), validRoute.getTravelDate());
+		Optional<Route> retrievedRouteOpt = routeRepository.find(validRoute.getOriginCity(),
+				validRoute.getOriginState(), validRoute.getDestinationCity(), validRoute.getDestinationState(),
+				validRoute.getTravelDate());
 
 		assertThat(retrievedRouteOpt).isPresent();
 		Route retrievedRoute = retrievedRouteOpt.get();
