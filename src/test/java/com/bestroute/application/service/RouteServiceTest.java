@@ -65,8 +65,7 @@ class RouteServiceTest {
 		RouteRequest request = createRouteRequest("São Paulo", "SP", "Rio de Janeiro", "RJ", now);
 		Route existingRoute = createRoute("São Paulo", "SP");
 
-		when(routeRepository.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-				"São Paulo", "SP", "Rio de Janeiro", "RJ", now))
+		when(routeRepository.find("São Paulo", "SP", "Rio de Janeiro", "RJ", now))
 			.thenReturn(Optional.of(existingRoute));
 
 		RouteResponse response = routeService.getOrCreateRoute(request);
@@ -84,9 +83,7 @@ class RouteServiceTest {
 		RouteRequest request = createRouteRequest("Curitiba", "PR", "Londrina", "PR", now);
 		Route savedRoute = createRoute("Curitiba", "PR");
 
-		when(routeRepository.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-				"Curitiba", "PR", "Londrina", "PR", now))
-			.thenReturn(Optional.empty());
+		when(routeRepository.find("Curitiba", "PR", "Londrina", "PR", now)).thenReturn(Optional.empty());
 
 		when(promptProvider.buildPrompt(any(), any(), any(), any(), any())).thenReturn("Mocked Prompt String");
 
@@ -112,9 +109,7 @@ class RouteServiceTest {
 	void shouldThrowRouteGenerationExceptionWhenAiIsOverloaded() {
 		RouteRequest request = createRouteRequest("Curitiba", "PR", "Londrina", "PR", now);
 
-		when(routeRepository.findByOriginCityAndOriginStateAndDestinationCityAndDestinationStateAndTravelDate(
-				"Curitiba", "PR", "Londrina", "PR", now))
-			.thenReturn(Optional.empty());
+		when(routeRepository.find("Curitiba", "PR", "Londrina", "PR", now)).thenReturn(Optional.empty());
 
 		when(promptProvider.buildPrompt(any(), any(), any(), any(), any())).thenReturn("Mocked Prompt String");
 
