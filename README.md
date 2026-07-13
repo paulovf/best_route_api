@@ -169,7 +169,7 @@ Once the application is running, you can access the live, interactive Swagger do
       "timestamp": "2026-06-26T14:55:57.962",
       "status": 422,
       "error": "Unprocessable Entity",
-      "message": "Unable to generate a valid itinerary between São Paulo (SP) and Alface (SP).",
+      "message": "Unable to generate a valid itinerary between São Paulo (SP) and Invalid City (IV).",
       "path": "/api/v1/routes/search"
   }
   ```
