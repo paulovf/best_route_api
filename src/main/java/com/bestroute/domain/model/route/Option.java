@@ -22,6 +22,8 @@ public class Option {
 
 	private BigDecimal totalDurationHours;
 
+	private String highlight;
+
 	public Option() {
 	}
 
@@ -71,6 +73,14 @@ public class Option {
 
 	public void setTotalDurationHours(BigDecimal totalDurationHours) {
 		this.totalDurationHours = totalDurationHours;
+	}
+
+	public String getHighlight() {
+		return highlight;
+	}
+
+	public void setHighlight(String highlight) {
+		this.highlight = highlight;
 	}
 
 }

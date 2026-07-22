@@ -169,7 +169,7 @@ Once the application is running, you can access the live, interactive Swagger do
       "timestamp": "2026-06-26T14:55:57.962",
       "status": 422,
       "error": "Unprocessable Entity",
-      "message": "Unable to generate a valid itinerary between São Paulo (SP) and Alface (SP).",
+      "message": "Unable to generate a valid itinerary between São Paulo (SP) and Invalid City (IV).",
       "path": "/api/v1/routes/search"
   }
   ```
@@ -178,3 +178,14 @@ Once the application is running, you can access the live, interactive Swagger do
 - **Endpoint:** `GET /api/v1/info`
 - **Headers:** `X-API-KEY: your_local_secret_key`
 - **Response:** Operational data and status of the BestRoute ecosystem.
+
+---
+
+## 🤝 Contributing
+
+1. Fork the project.
+2. Create your feature branch (`git checkout -b feature/amazing-feature`).
+3. Commit your changes (`git commit -m 'Add some amazing feature'`).
+4. Ensure code passes linting and tests (`npm run lint`, `npm run test`).
+5. Push to the branch (`git push origin feature/amazing-feature`).
+6. Open a Pull Request.

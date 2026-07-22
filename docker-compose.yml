@@ -69,3 +69,4 @@ volumes:
 
 networks:
   bestroute-api-network:
+    name: bestroute-shared-network
