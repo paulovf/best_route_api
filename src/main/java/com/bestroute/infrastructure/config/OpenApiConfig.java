@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.config;
+package com.bestroute.infrastructure.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
