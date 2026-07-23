@@ -14,6 +14,7 @@ public @interface ValidTravelDate {
 
 	Class<?>[] groups() default {};
 
+	@SuppressWarnings("unused")
 	Class<? extends Payload>[] payload() default {};
 
 }

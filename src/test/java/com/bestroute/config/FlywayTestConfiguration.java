@@ -25,7 +25,7 @@ class FlywayTestConfiguration {
 
 			}
 			catch (Exception e) {
-				throw new RuntimeException("Falha ao resetar a extensão unaccent para os testes", e);
+				throw new RuntimeException("Failed to reset the unaccent extension for the tests.", e);
 			}
 			flyway.migrate();
 		};
