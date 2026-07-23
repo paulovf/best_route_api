@@ -50,7 +50,7 @@ class RouteRepositoryTest {
 	@Test
 	@DisplayName("When passing invalid params, return error")
 	void shouldThrowExceptionWhenFieldsAreInvalid() {
-		validRoute.setOriginState("SP-EXTENSO");
+		validRoute.setOriginState("SP-SP");
 
 		assertThrows(ConstraintViolationException.class, () -> {
 			routeRepository.saveAndFlush(validRoute);

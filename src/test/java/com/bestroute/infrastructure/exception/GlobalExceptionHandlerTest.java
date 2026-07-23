@@ -1,5 +1,6 @@
-package com.bestroute.infraestructure.exception;
+package com.bestroute.infrastructure.exception;
 
+import com.bestroute.application.exception.GlobalExceptionHandler;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.exception;
+package com.bestroute.application.exception;
 
 import com.bestroute.api.response.ValidationErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;

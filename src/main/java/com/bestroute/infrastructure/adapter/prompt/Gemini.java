@@ -1,4 +1,4 @@
-package com.bestroute.application.service.ia;
+package com.bestroute.infrastructure.adapter.prompt;
 
 import com.bestroute.application.service.prompt.RoutePromptProvider;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 
 @Component
-public class Gamini implements RoutePromptProvider {
+public class Gemini implements RoutePromptProvider {
 
 	@Value("classpath:prompts/gemini-route.st")
 	private Resource promptResource;

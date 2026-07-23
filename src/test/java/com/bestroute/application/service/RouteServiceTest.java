@@ -5,7 +5,7 @@ import com.bestroute.api.response.RouteResponse;
 import com.bestroute.application.service.prompt.RoutePromptProvider;
 import com.bestroute.domain.model.Route;
 import com.bestroute.domain.repository.RouteRepository;
-import com.bestroute.infraestructure.exception.RouteGenerationException;
+import com.bestroute.application.exception.RouteGenerationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,6 @@ class RouteServiceTest {
 	@Test
 	@DisplayName("When route exists, return a route from database (Cache Hit)")
 	void shouldReturnExistingRouteWhenFoundInDatabase() {
-		// Arrange
 		RouteRequest request = createRouteRequest("São Paulo", "SP", "Rio de Janeiro", "RJ", now);
 		Route existingRoute = createRoute("São Paulo", "SP");
 

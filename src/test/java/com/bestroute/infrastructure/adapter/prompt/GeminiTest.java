@@ -1,6 +1,5 @@
-package com.bestroute.application.service.prompt;
+package com.bestroute.infrastructure.adapter.prompt;
 
-import com.bestroute.application.service.ia.Gamini;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,13 +16,13 @@ import java.time.ZoneOffset;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class GaminiTest {
+class GeminiTest {
 
-	private Gamini gamini;
+	private Gemini gemini;
 
 	@BeforeEach
 	void setUp() {
-		gamini = new Gamini();
+		gemini = new Gemini();
 	}
 
 	@Test
@@ -33,11 +32,11 @@ class GaminiTest {
 
 		Resource resourceMock = new ByteArrayResource(templateMock.getBytes(StandardCharsets.UTF_8));
 
-		ReflectionTestUtils.setField(gamini, "promptResource", resourceMock);
+		ReflectionTestUtils.setField(gemini, "promptResource", resourceMock);
 
 		OffsetDateTime travelDate = OffsetDateTime.of(2026, 7, 12, 10, 0, 0, 0, ZoneOffset.UTC);
 
-		String finalPrompt = gamini.buildPrompt("Rio de Janeiro", "RJ", "São Paulo", "SP", travelDate);
+		String finalPrompt = gemini.buildPrompt("Rio de Janeiro", "RJ", "São Paulo", "SP", travelDate);
 
 		String expectedPrompt = "Create a route from Rio de Janeiro (RJ) to São Paulo (SP) on 2026-07-12T10:00Z.";
 		assertThat(finalPrompt).isEqualTo(expectedPrompt);
@@ -50,11 +49,11 @@ class GaminiTest {
 		Mockito.when(flawedResourceMock.getContentAsString(StandardCharsets.UTF_8))
 			.thenThrow(new IOException("Simulated disk error or missing file"));
 
-		ReflectionTestUtils.setField(gamini, "promptResource", flawedResourceMock);
+		ReflectionTestUtils.setField(gemini, "promptResource", flawedResourceMock);
 
 		OffsetDateTime now = OffsetDateTime.now();
 
-		assertThatThrownBy(() -> gamini.buildPrompt("Rio", "RJ", "Santos", "SP", now))
+		assertThatThrownBy(() -> gemini.buildPrompt("Rio", "RJ", "Santos", "SP", now))
 			.isInstanceOf(RuntimeException.class)
 			.hasMessageStartingWith("Failed to read prompt template file")
 			.hasCauseInstanceOf(IOException.class);

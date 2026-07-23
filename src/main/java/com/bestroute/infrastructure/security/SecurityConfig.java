@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.security;
+package com.bestroute.infrastructure.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
