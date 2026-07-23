@@ -3,7 +3,6 @@ package com.bestroute.infrastructure.adapter.prompt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -15,6 +14,7 @@ import java.time.ZoneOffset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.*;
 
 class GeminiTest {
 
@@ -45,8 +45,8 @@ class GeminiTest {
 	@Test
 	@DisplayName("Should throw RuntimeException when prompt resource fails to read")
 	void shouldThrowRuntimeExceptionWhenIOExceptionOccurs() throws IOException {
-		Resource flawedResourceMock = Mockito.mock(Resource.class);
-		Mockito.when(flawedResourceMock.getContentAsString(StandardCharsets.UTF_8))
+		Resource flawedResourceMock = mock(Resource.class);
+		when(flawedResourceMock.getContentAsString(StandardCharsets.UTF_8))
 			.thenThrow(new IOException("Simulated disk error or missing file"));
 
 		ReflectionTestUtils.setField(gemini, "promptResource", flawedResourceMock);

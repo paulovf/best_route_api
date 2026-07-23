@@ -1,12 +1,12 @@
-package com.bestroute.infrastructure.exception;
+package com.bestroute.application.exception;
 
-import com.bestroute.application.exception.GlobalExceptionHandler;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,15 +49,40 @@ class GlobalExceptionHandlerTest {
 			.andExpect(jsonPath("$.errors.destination_state", is("State cannot be blank")));
 	}
 
-	private record DummyRequest(@NotBlank(message = "City cannot be blank") String originCity,
-			@NotBlank(message = "State cannot be blank") String destinationState) {
-	}
-
 	@RestController
 	private static class TestController {
 
+		@SuppressWarnings("unused")
 		@PostMapping("/test-validation")
-		public void handleTest(@Valid @RequestBody DummyRequest request) {
+		public ResponseEntity<Void> testValidation(@Valid @RequestBody TestRequest request) {
+			return ResponseEntity.ok().build();
+		}
+
+	}
+
+	@SuppressWarnings("unused")
+	public static class TestRequest {
+
+		@NotBlank(message = "City cannot be blank")
+		private String originCity;
+
+		@NotBlank(message = "State cannot be blank")
+		private String destinationState;
+
+		public String getOriginCity() {
+			return originCity;
+		}
+
+		public void setOriginCity(String originCity) {
+			this.originCity = originCity;
+		}
+
+		public String getDestinationState() {
+			return destinationState;
+		}
+
+		public void setDestinationState(String destinationState) {
+			this.destinationState = destinationState;
 		}
 
 	}

@@ -23,7 +23,6 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -89,7 +88,21 @@ class RouteServiceTest {
 		when(chatClient.prompt()).thenReturn(requestSpec);
 		when(requestSpec.messages(any(UserMessage.class))).thenReturn(requestSpec);
 		when(requestSpec.call()).thenReturn(responseSpec);
-		when(responseSpec.content()).thenReturn(mountMockAiJsonCassette());
+		String mockAiJsonCassette = """
+						```json
+				[
+				  {
+				    "description": "Best highway route avoiding traffic",
+				    "total_kilometers": 430.5,
+				    "total_amount": 0.0,
+				    "total_duration_hours": 5.0,
+				    "order": 1,
+				    "steps": []
+				  }
+				]
+				```
+				""";
+		when(responseSpec.content()).thenReturn(mockAiJsonCassette);
 
 		when(routeRepository.save(any(Route.class))).thenReturn(savedRoute);
 
@@ -138,23 +151,6 @@ class RouteServiceTest {
 		route.setTravelDate(now);
 		route.setApiResponse(new ArrayList<>());
 		return route;
-	}
-
-	private String mountMockAiJsonCassette() {
-		return """
-						```json
-				[
-				  {
-				    "description": "Best highway route avoiding traffic",
-				    "total_kilometers": 430.5,
-				    "total_amount": 0.0,
-				    "total_duration_hours": 5.0,
-				    "order": 1,
-				    "steps": []
-				  }
-				]
-				```
-				""";
 	}
 
 }

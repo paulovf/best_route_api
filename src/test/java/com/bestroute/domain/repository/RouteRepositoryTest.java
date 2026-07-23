@@ -42,9 +42,7 @@ class RouteRepositoryTest {
 	void shouldThrowExceptionWhenFieldsAreNull() {
 		Route invalidRoute = new Route();
 
-		assertThrows(Exception.class, () -> {
-			routeRepository.saveAndFlush(invalidRoute);
-		});
+		assertThrows(Exception.class, () -> routeRepository.saveAndFlush(invalidRoute));
 	}
 
 	@Test
@@ -52,9 +50,7 @@ class RouteRepositoryTest {
 	void shouldThrowExceptionWhenFieldsAreInvalid() {
 		validRoute.setOriginState("SP-SP");
 
-		assertThrows(ConstraintViolationException.class, () -> {
-			routeRepository.saveAndFlush(validRoute);
-		});
+		assertThrows(ConstraintViolationException.class, () -> routeRepository.saveAndFlush(validRoute));
 	}
 
 	@Test
@@ -80,8 +76,8 @@ class RouteRepositoryTest {
 		Step step2 = createBaseStep("bus", 2);
 		Step step1 = createBaseStep("plane", 1);
 
-		Option option2 = createBaseOption("Opção mais demorada", 2, List.of(step2));
-		Option option1 = createBaseOption("Opção mais rápida", 1, List.of(step1));
+		Option option2 = createBaseOption("Option slow", 2, List.of(step2));
+		Option option1 = createBaseOption("Option fast", 1, List.of(step1));
 
 		validRoute.setApiResponse(new ArrayList<>(List.of(option2, option1)));
 
@@ -95,7 +91,7 @@ class RouteRepositoryTest {
 		assertThat(optionsFromDb.get(0).getOrder()).isEqualTo(1);
 		assertThat(optionsFromDb.get(1).getOrder()).isEqualTo(2);
 
-		assertThat(optionsFromDb.getFirst().getDescription()).isEqualTo("Opção mais rápida");
+		assertThat(optionsFromDb.getFirst().getDescription()).isEqualTo("Option fast");
 	}
 
 	@Test
@@ -115,7 +111,7 @@ class RouteRepositoryTest {
 
 	private Route createBaseValidRoute() {
 		Step step = createBaseStep("car", 1);
-		Option option = createBaseOption("Rota Padrão", 1, List.of(step));
+		Option option = createBaseOption("Rota Default", 1, List.of(step));
 
 		Route route = new Route();
 		route.setOriginCity("São Paulo");
@@ -142,10 +138,10 @@ class RouteRepositoryTest {
 		step.setTransportType(transport);
 		step.setKilometers(new BigDecimal("100.0"));
 		step.setAverageAmount(new BigDecimal("50.00"));
-		step.setOriginCity("Cidade A");
+		step.setOriginCity("City A");
 		step.setOriginState("AA");
 		step.setOriginDeparture("Terminal A");
-		step.setDestinationCity("Cidade B");
+		step.setDestinationCity("City B");
 		step.setDestinationState("BB");
 		step.setDestinationArrival("Terminal B");
 		step.setOrder(order);

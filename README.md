@@ -7,7 +7,7 @@ BestRoute API is an intelligent, high-performance solution built for route calcu
 The project leverages modern, production-grade tools from the Java ecosystem:
 
 - **Language:** Java 21 (LTS)
-- **Framework:** Spring Boot 3.3.5
+- **Framework:** Spring Boot 3.4.0
 - **AI Integration:** Spring AI (Official Spring framework for AI orchestration)
 - **LLM / AI Model:** Google Gemini (Powering intelligent route and itinerary generation)
 - **Persistence & Migrations:** Spring Data JPA & Flyway (Database schema versioning)
