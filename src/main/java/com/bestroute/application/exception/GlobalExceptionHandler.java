@@ -24,10 +24,19 @@ public class GlobalExceptionHandler {
 		Map<String, String> errors = new HashMap<>();
 
 		ex.getBindingResult().getAllErrors().forEach(error -> {
-			String fieldName = ((FieldError) error).getField();
-			String snakeCaseFieldName = fieldName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
 			String errorMessage = error.getDefaultMessage();
-			errors.put(snakeCaseFieldName, errorMessage);
+			String keyName;
+
+			if (error instanceof FieldError fieldError) {
+				String fieldName = fieldError.getField();
+				keyName = fieldName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+			}
+			else {
+				String objectName = error.getObjectName();
+				keyName = objectName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+			}
+
+			errors.put(keyName, errorMessage);
 		});
 
 		ValidationErrorResponse errorResponse = new ValidationErrorResponse(LocalDateTime.now(ZoneOffset.UTC),
