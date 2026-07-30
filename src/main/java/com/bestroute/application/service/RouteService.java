@@ -6,7 +6,7 @@ import com.bestroute.application.service.prompt.RoutePromptProvider;
 import com.bestroute.domain.model.route.Option;
 import com.bestroute.domain.repository.RouteRepository;
 import com.bestroute.domain.model.Route;
-import com.bestroute.infraestructure.exception.RouteGenerationException;
+import com.bestroute.application.exception.RouteGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -75,17 +75,6 @@ public class RouteService {
 		}
 	}
 
-	private Route createRote(RouteRequest request) {
-		Route newRoute = new Route();
-		newRoute.setOriginCity(request.originCity().trim());
-		newRoute.setOriginState(request.originState().toUpperCase().trim());
-		newRoute.setDestinationCity(request.destinationCity().trim());
-		newRoute.setDestinationState(request.destinationState().toUpperCase().trim());
-		newRoute.setTravelDate(request.travelDate());
-
-		return newRoute;
-	}
-
 	private RouteResponse saveRoute(RouteRequest request, String jsonResponse) {
 		try {
 			String cleanJson = jsonResponse.replaceAll("```json|```", "").trim();
@@ -107,11 +96,22 @@ public class RouteService {
 			}
 		}
 		catch (Exception e) {
-			log.error("Erro during IA response parse:", e);
+			log.error("Error during IA response parse:", e);
 
 			throw new RouteGenerationException(
 					"Failed to parse AI response into JSON structural map: " + e.getMessage());
 		}
+	}
+
+	private Route createRote(RouteRequest request) {
+		Route newRoute = new Route();
+		newRoute.setOriginCity(request.originCity().trim());
+		newRoute.setOriginState(request.originState().toUpperCase().trim());
+		newRoute.setDestinationCity(request.destinationCity().trim());
+		newRoute.setDestinationState(request.destinationState().toUpperCase().trim());
+		newRoute.setTravelDate(request.travelDate());
+
+		return newRoute;
 	}
 
 }

@@ -59,4 +59,17 @@ class RouteRequestTest {
 					"The destination state must have 2 letters");
 	}
 
+	@Test
+	@DisplayName("Should fail validation when states do not have exactly 2 letters")
+	void shouldFailValidationWhenStateCharacterIsInvalid() {
+		RouteRequest request = new RouteRequest("São Paulo", "S ", "Rio de Janeiro", "01", OffsetDateTime.now());
+
+		Set<ConstraintViolation<RouteRequest>> violations = validator.validate(request);
+
+		assertThat(violations).hasSize(2);
+		assertThat(violations).extracting(ConstraintViolation::getMessage)
+			.containsExactlyInAnyOrder("The origin state must have 2 letters",
+					"The destination state must have 2 letters");
+	}
+
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import java.math.BigDecimal;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Option {
 
@@ -25,6 +26,7 @@ public class Option {
 	private String highlight;
 
 	public Option() {
+		// Default constructor for Jackson use
 	}
 
 	public Integer getTotalKilometers() {

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @RestController
 @RequestMapping("/api/v1/info")
@@ -16,7 +17,8 @@ public class InfoController {
 
 	@GetMapping
 	public ResponseEntity<ApiInfoResponse> getApiInfo() {
-		ApiInfoResponse info = new ApiInfoResponse("BestRoute API", this.appVersion, "UP", LocalDateTime.now());
+		ApiInfoResponse info = new ApiInfoResponse("BestRoute API", this.appVersion, "UP",
+				LocalDateTime.now(ZoneOffset.UTC));
 
 		return ResponseEntity.ok(info);
 	}

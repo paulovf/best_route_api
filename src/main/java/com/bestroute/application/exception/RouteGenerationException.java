@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.exception;
+package com.bestroute.application.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

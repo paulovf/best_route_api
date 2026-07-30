@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.math.BigDecimal;
 
+@SuppressWarnings("unused")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Step {
 
@@ -35,6 +36,7 @@ public class Step {
 	private BigDecimal durationHours;
 
 	public Step() {
+		// Default constructor for Jackson use
 	}
 
 	public String getTransportType() {

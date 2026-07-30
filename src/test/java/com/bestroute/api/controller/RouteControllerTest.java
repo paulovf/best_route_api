@@ -3,17 +3,17 @@ package com.bestroute.api.controller;
 import com.bestroute.api.request.RouteRequest;
 import com.bestroute.api.response.RouteResponse;
 import com.bestroute.application.service.RouteService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -30,10 +30,7 @@ class RouteControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Autowired
-	private ObjectMapper objectMapper;
-
-	@MockBean
+	@MockitoBean
 	private RouteService routeService;
 
 	private static final String MOCK_API_KEY = "super-secret-api-key-123";
@@ -42,7 +39,7 @@ class RouteControllerTest {
 	@WithMockUser
 	@DisplayName("When passing valid params, return HTTP status 200")
 	void shouldReturnOkWhenPayloadIsValid() throws Exception {
-		OffsetDateTime now = OffsetDateTime.now();
+		OffsetDateTime now = OffsetDateTime.now().truncatedTo(ChronoUnit.MILLIS);
 		RouteResponse mockResponse = new RouteResponse(UUID.randomUUID(), "São Paulo", "SP", "Rio de Janeiro", "RJ",
 				now, new ArrayList<>());
 		when(routeService.getOrCreateRoute(any(RouteRequest.class))).thenReturn(mockResponse);

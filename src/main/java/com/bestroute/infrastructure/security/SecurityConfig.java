@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.security;
+package com.bestroute.infrastructure.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +19,9 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		// NO SONAR - CSRF protection is intentionally disabled.
+		// This is safe because it's a stateless REST API that does not rely on
+		// session cookies, using custom API Keys via headers for authentication instead.
 		return http.csrf(AbstractHttpConfigurer::disable)
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authorizeHttpRequests(auth -> auth.requestMatchers("/actuator/health")

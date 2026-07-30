@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@SuppressWarnings("unused")
 @Table(name = "routes", uniqueConstraints = { @UniqueConstraint(name = "uk_route_search_cache_insensitive",
 		columnNames = { "origin_city", "origin_state", "destination_city", "destination_state", "travel_date" }) })
 public class Route {
@@ -59,6 +60,7 @@ public class Route {
 	private OffsetDateTime updatedAt;
 
 	public Route() {
+		// Default constructor for Jackson use
 	}
 
 	public UUID getId() {

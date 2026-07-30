@@ -1,19 +1,21 @@
 package com.bestroute.api.request;
 
+import com.bestroute.api.validation.DifferentOriginAndDestination;
 import com.bestroute.api.validation.ValidTravelDate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 
+@DifferentOriginAndDestination(message = "The origin location cannot be the same as the destination")
 public record RouteRequest(@NotBlank(message = "The origin city is required") String originCity,
 
-		@NotBlank(message = "The origin state is required") @Size(min = 2, max = 2,
+		@NotBlank(message = "The origin state is required") @Pattern(regexp = "^[A-Za-z]{2}$",
 				message = "The origin state must have 2 letters") String originState,
 
 		@NotBlank(message = "The destination city is required") String destinationCity,
 
-		@NotBlank(message = "The destination state is required") @Size(min = 2, max = 2,
+		@NotBlank(message = "The destination state is required") @Pattern(regexp = "^[A-Za-z]{2}$",
 				message = "The destination state must have 2 letters") String destinationState,
 
 		@NotNull(message = "The travel date is required") @ValidTravelDate(

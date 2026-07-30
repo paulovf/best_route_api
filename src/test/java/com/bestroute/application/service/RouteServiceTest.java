@@ -5,7 +5,7 @@ import com.bestroute.api.response.RouteResponse;
 import com.bestroute.application.service.prompt.RoutePromptProvider;
 import com.bestroute.domain.model.Route;
 import com.bestroute.domain.repository.RouteRepository;
-import com.bestroute.infraestructure.exception.RouteGenerationException;
+import com.bestroute.application.exception.RouteGenerationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,6 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -61,7 +60,6 @@ class RouteServiceTest {
 	@Test
 	@DisplayName("When route exists, return a route from database (Cache Hit)")
 	void shouldReturnExistingRouteWhenFoundInDatabase() {
-		// Arrange
 		RouteRequest request = createRouteRequest("São Paulo", "SP", "Rio de Janeiro", "RJ", now);
 		Route existingRoute = createRoute("São Paulo", "SP");
 
@@ -90,7 +88,21 @@ class RouteServiceTest {
 		when(chatClient.prompt()).thenReturn(requestSpec);
 		when(requestSpec.messages(any(UserMessage.class))).thenReturn(requestSpec);
 		when(requestSpec.call()).thenReturn(responseSpec);
-		when(responseSpec.content()).thenReturn(mountMockAiJsonCassette());
+		String mockAiJsonCassette = """
+						```json
+				[
+				  {
+				    "description": "Best highway route avoiding traffic",
+				    "total_kilometers": 430.5,
+				    "total_amount": 0.0,
+				    "total_duration_hours": 5.0,
+				    "order": 1,
+				    "steps": []
+				  }
+				]
+				```
+				""";
+		when(responseSpec.content()).thenReturn(mockAiJsonCassette);
 
 		when(routeRepository.save(any(Route.class))).thenReturn(savedRoute);
 
@@ -139,23 +151,6 @@ class RouteServiceTest {
 		route.setTravelDate(now);
 		route.setApiResponse(new ArrayList<>());
 		return route;
-	}
-
-	private String mountMockAiJsonCassette() {
-		return """
-						```json
-				[
-				  {
-				    "description": "Best highway route avoiding traffic",
-				    "total_kilometers": 430.5,
-				    "total_amount": 0.0,
-				    "total_duration_hours": 5.0,
-				    "order": 1,
-				    "steps": []
-				  }
-				]
-				```
-				""";
 	}
 
 }

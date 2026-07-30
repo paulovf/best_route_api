@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.security;
+package com.bestroute.infrastructure.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -10,11 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOrigins("http://localhost:8080", "https://seu-front-em-producao.com") // Adicionar
-																							// a
-																							// URL
-																							// do
-																							// front
+			.allowedOrigins("http://localhost:8080", "https://best-route-app.vercel.app/")
 			.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
 			.allowedHeaders("*")
 			.allowCredentials(true);

@@ -1,4 +1,4 @@
-package com.bestroute.infraestructure.exception;
+package com.bestroute.application.exception;
 
 import com.bestroute.api.response.ValidationErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -21,14 +23,23 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ValidationErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
 		Map<String, String> errors = new HashMap<>();
 
-		ex.getBindingResult().getAllErrors().forEach((error) -> {
-			String fieldName = ((FieldError) error).getField();
-			String snakeCaseFieldName = fieldName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+		ex.getBindingResult().getAllErrors().forEach(error -> {
 			String errorMessage = error.getDefaultMessage();
-			errors.put(snakeCaseFieldName, errorMessage);
+			String keyName;
+
+			if (error instanceof FieldError fieldError) {
+				String fieldName = fieldError.getField();
+				keyName = fieldName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+			}
+			else {
+				String objectName = error.getObjectName();
+				keyName = objectName.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+			}
+
+			errors.put(keyName, errorMessage);
 		});
 
-		ValidationErrorResponse errorResponse = new ValidationErrorResponse(LocalDateTime.now(),
+		ValidationErrorResponse errorResponse = new ValidationErrorResponse(LocalDateTime.now(ZoneOffset.UTC),
 				HttpStatus.BAD_REQUEST.value(), "Request fields invalids", errors);
 
 		return ResponseEntity.badRequest().body(errorResponse);
@@ -39,7 +50,7 @@ public class GlobalExceptionHandler {
 			HttpServletRequest request) {
 		Map<String, Object> body = new LinkedHashMap<>();
 
-		body.put("timestamp", LocalDateTime.now());
+		body.put("timestamp", LocalDateTime.now(ZoneOffset.UTC));
 		body.put("status", HttpStatus.UNPROCESSABLE_ENTITY.value());
 		body.put("error", "Unprocessable Entity");
 		body.put("message", ex.getMessage());
