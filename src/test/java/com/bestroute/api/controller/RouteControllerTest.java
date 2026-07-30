@@ -13,6 +13,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ class RouteControllerTest {
 	@WithMockUser
 	@DisplayName("When passing valid params, return HTTP status 200")
 	void shouldReturnOkWhenPayloadIsValid() throws Exception {
-		OffsetDateTime now = OffsetDateTime.now();
+		OffsetDateTime now = OffsetDateTime.now().truncatedTo(ChronoUnit.MILLIS);
 		RouteResponse mockResponse = new RouteResponse(UUID.randomUUID(), "São Paulo", "SP", "Rio de Janeiro", "RJ",
 				now, new ArrayList<>());
 		when(routeService.getOrCreateRoute(any(RouteRequest.class))).thenReturn(mockResponse);

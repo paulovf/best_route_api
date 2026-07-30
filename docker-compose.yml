@@ -26,6 +26,11 @@ services:
       - postgres_test_data:/var/lib/postgresql/data
     networks:
       - bestroute-api-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres_test -d postgres_test" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   api:
     build: .
@@ -57,10 +62,11 @@ services:
       - DB_USERNAME=postgres_test
       - DB_PASSWORD=postgres_test
       - GEMINI_API_KEY=${GEMINI_API_KEY}
-    depends_on:
-      - postgres-test
     networks:
       - bestroute-api-network
+    depends_on:
+      postgres-test:
+        condition: service_healthy
     command: mvn test
 
 volumes:
