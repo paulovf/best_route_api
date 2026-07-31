@@ -189,3 +189,10 @@ Once the application is running, you can access the live, interactive Swagger do
 4. Ensure code passes linting and tests (`npm run lint`, `npm run test`).
 5. Push to the branch (`git push origin feature/amazing-feature`).
 6. Open a Pull Request.
+
+Cidades de origem
+https://bestroute.grafana.net/public-dashboards/e3a01190811640189dea71a6a5220813
+
+Cidades de destino
+https://bestroute.grafana.net/public-dashboards/904300082f9b47129b246b70595e2b3c
+
