@@ -1,6 +1,8 @@
 # BestRoute API 🚀
 
-BestRoute API is an intelligent, high-performance solution built for route calculation, optimization, and cache management in logistics workflows. The application efficiently centralizes itinerary lookups, mitigating redundant third-party API calls through a robust persistence and validation layer.
+BestRoute API is an intelligent, high-performance solution built for route calculation, optimization, and cache management in logistics workflows. The application efficiently centralizes itinerary lookups, mitigating redundant third-party API calls through a robust persistence, validation, and observability layer.
+
+---
 
 ## 🛠️ Tech Stack & Tools
 
@@ -12,9 +14,11 @@ The project leverages modern, production-grade tools from the Java ecosystem:
 - **LLM / AI Model:** Google Gemini (Powering intelligent route and itinerary generation)
 - **Persistence & Migrations:** Spring Data JPA & Flyway (Database schema versioning)
 - **Database:** PostgreSQL (Hosted via Supabase with Connection Pooling enabled)
+- **Observability:** Spring Boot Actuator, Micrometer, Grafana Cloud (Prometheus metrics)
 - **Security:** Spring Security (Custom X-API-KEY header authentication filter)
 - **Documentation:** Springdoc OpenAPI 3 (Swagger UI)
 - **Cloud/Hosting:** Render (Web Services)
+- **Design & Planning:** Figma (Database Schema & API Mind Maps), Notion (Agile Task Board)
 
 ---
 
@@ -23,7 +27,33 @@ The project leverages modern, production-grade tools from the Java ecosystem:
 1. **Cost & API Call Optimization:** Intelligent search caching based on origin city, origin state, destination city, destination state, and travel date to prevent duplicate external requests.
 2. **Advanced Security:** Malicious and unauthorized traffic blocking via strict validation of the incoming `X-API-KEY` request header.
 3. **Fault Resilience:** A global error handling system (`GlobalExceptionHandler`) providing standardized JSON responses for edge cases, such as invalid input data (HTTP 400) or business rule violations like route generation failures (HTTP 422).
-4. **Production Ready:** Out-of-the-box automatic database migrations via Flyway and native handling of dynamic environment variables injected by PaaS platforms (like Render).
+4. **Real-time Observability:** Exposes application metrics, health checks, and JVM diagnostics to Grafana Cloud via Prometheus endpoints.
+5. **Production Ready:** Out-of-the-box automatic database migrations via Flyway and native handling of dynamic environment variables injected by PaaS platforms (like Render).
+
+---
+
+## 📐 System Architecture & Diagrams
+
+Domain modeling, database relational structures, and API architecture mind maps are maintained on Figma:
+
+- 🗄️ **Database Schema & Entity Models:** [Best Route - Database Structure](https://www.figma.com/board/OYUa8pboZUrUhOc6uaZUuC/Estrutura-tabelas-banco-de-dados?t=DUpCdS8f1zaZyiUs-1)
+- 🧠 **Backend Architecture & API Mind Map:** [Best Route - API Mind Map](https://www.figma.com/board/HTYkRQgw1OmiNNAozzQWt0/Mapa-mental-API?t=DUpCdS8f1zaZyiUs-1)
+
+---
+
+## 📋 Task Management & Planning
+
+Sprint planning, epics, backlog items, and engineering task cards are organized and tracked via Notion following agile methodologies:
+
+- 📌 **Notion Task Board:** [Best Route - Backend Kanban & Tasks](https://silk-stay-df9.notion.site/23b28b90a2db48e5a51203e717d325c5?v=1f3d96807cb949a6b18edc6a0445e628)
+
+---
+
+## 📊 Observability & Monitoring
+
+Application health, JVM performance, response latencies, HTTP error rates, and database pool connection metrics are collected via **Spring Boot Actuator + Micrometer** and visualized in a public Grafana dashboard:
+
+- 📈 **Grafana Public Dashboard:** [Best Route API Observability Panel](https://bestroute.grafana.net/public-dashboards/4c2c2148b4694ab6a5dadf5d5547f865)
 
 ---
 
@@ -38,6 +68,7 @@ To run the project locally or in production, ensure the following environment va
 | `SPRING_DATASOURCE_PASSWORD` | Database password | `your_secure_password` |
 | `GEMINI_API_KEY` | Google AI Studio API Key for Gemini integration | `AIzaSyYourGeminiKeyXYZ` |
 | `API_KEY_SECRET` | Secret master key token expected in the request header | `master-key-token-xyz` |
+
 ---
 
 ## 🚀 How to Run Locally
@@ -82,11 +113,11 @@ cd bestroute-api
 3. Locate the main class `BastRouteApplication.java` inside `src/main/java/com/bestroute/`.
 4. Click the **Run** menu at the top or the dropdown next to the green play button, and select **Edit Configurations...**
 5. In the **Environment variables** field, click the folder/document icon on the right to open the key-value pair builder, and add your variables:
-   * `SPRING_DATASOURCE_URL` = `jdbc:postgresql://localhost:5432/bestroute`
-   * `SPRING_DATASOURCE_USERNAME` = `postgres`
-   * `SPRING_DATASOURCE_PASSWORD` = `root`
-   * `GEMINI_API_KEY` = `AIzaSyYourGeminiKeyXYZ`
-   * `API_KEY_SECRET` = `your_local_secret_key`
+    * `SPRING_DATASOURCE_URL` = `jdbc:postgresql://localhost:5432/bestroute`
+    * `SPRING_DATASOURCE_USERNAME` = `postgres`
+    * `SPRING_DATASOURCE_PASSWORD` = `root`
+    * `GEMINI_API_KEY` = `AIzaSyYourGeminiKeyXYZ`
+    * `API_KEY_SECRET` = `your_local_secret_key`
 6. Click **Apply** and then **OK**.
 7. Click the green **Run** (Play) button or press `Shift + F10` to start the API.
 
@@ -132,23 +163,24 @@ If you manage an isolated environment for testing using Docker Compose, you can 
    ```
 
 2. Once inside the container's environment, execute any of the following standard Maven commands depending on your need:
-   * **Run the entire test suite:**
-     ```bash
-     mvn test
-     ```
-   * **Run a single specific test class:**
-     ```bash
-     mvn test -Dtest=RouteRepositoryTest
-     ```
-   * **Run a single specific test method inside a class:**
-     ```bash
-     mvn test -Dtest=RouteRepositoryTest#shouldThrowExceptionWhenFieldsAreNull
-     ```
-   * **Format and validate code:**
-     ```bash
-     ./mvnw spring-javaformat:apply
-     ./mvnw spring-javaformat:validate
-     ```
+    * **Run the entire test suite:**
+      ```bash
+      mvn test
+      ```
+    * **Run a single specific test class:**
+      ```bash
+      mvn test -Dtest=RouteRepositoryTest
+      ```
+    * **Run a single specific test method inside a class:**
+      ```bash
+      mvn test -Dtest=RouteRepositoryTest#shouldThrowExceptionWhenFieldsAreNull
+      ```
+    * **Format and validate code:**
+      ```bash
+      ./mvnw spring-javaformat:apply
+      ./mvnw spring-javaformat:validate
+      ```
+
 ---
 
 ## 📖 API Documentation (Endpoints)
@@ -186,6 +218,6 @@ Once the application is running, you can access the live, interactive Swagger do
 1. Fork the project.
 2. Create your feature branch (`git checkout -b feature/amazing-feature`).
 3. Commit your changes (`git commit -m 'Add some amazing feature'`).
-4. Ensure code passes linting and tests (`npm run lint`, `npm run test`).
+4. Ensure code passes linting and tests (`./mvnw test`).
 5. Push to the branch (`git push origin feature/amazing-feature`).
 6. Open a Pull Request.

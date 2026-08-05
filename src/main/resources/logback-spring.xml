@@ -23,6 +23,8 @@
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="LOKI" />
+        <springProfile name="prod">
+            <appender-ref ref="LOKI" />
+        </springProfile>
     </root>
 </configuration>
