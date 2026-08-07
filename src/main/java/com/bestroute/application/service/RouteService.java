@@ -94,8 +94,8 @@ public class RouteService {
 			}
 			else {
 				throw new RouteGenerationException("Unable to generate a valid itinerary between %s (%s) and %s (%s)."
-						.formatted(request.originCity(), request.originState(), request.destinationCity(),
-								request.destinationState()));
+					.formatted(request.originCity(), request.originState(), request.destinationCity(),
+							request.destinationState()));
 			}
 		}
 		catch (Exception e) {
