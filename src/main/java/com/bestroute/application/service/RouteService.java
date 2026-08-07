@@ -8,6 +8,7 @@ import com.bestroute.domain.repository.RouteRepository;
 import com.bestroute.domain.model.Route;
 import com.bestroute.application.exception.RouteGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +79,9 @@ public class RouteService {
 	private RouteResponse saveRoute(RouteRequest request, String jsonResponse) {
 		try {
 			String cleanJson = jsonResponse.replaceAll("```json|```", "").trim();
+
 			ObjectMapper objectMapper = new ObjectMapper();
+			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			List<Option> aiSuggestions = objectMapper.readValue(cleanJson, new TypeReference<>() {
 			});
 

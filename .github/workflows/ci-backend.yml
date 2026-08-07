@@ -44,4 +44,7 @@ jobs:
       - name: Run test with test profile
         env:
           DB_PORT: 5432
+          LOKI_URL: http://localhost:3100/loki/api/v1/push
+          LOKI_USER: loki_user
+          LOKI_TOKEN: loki_token
         run: ./mvnw clean test -Dspring.profiles.active=test

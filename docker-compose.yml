@@ -43,6 +43,9 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - LOKI_URL=${LOKI_URL}
+      - LOKI_USER=${LOKI_USER}
+      - LOKI_TOKEN=${LOKI_TOKEN}
     depends_on:
       - postgres-local
     networks:
@@ -62,6 +65,9 @@ services:
       - DB_USERNAME=postgres_test
       - DB_PASSWORD=postgres_test
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - LOKI_URL=${LOKI_URL}
+      - LOKI_USER=${LOKI_USER}
+      - LOKI_TOKEN=${LOKI_TOKEN}
     networks:
       - bestroute-api-network
     depends_on:

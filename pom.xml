@@ -11,7 +11,7 @@
 
     <groupId>com.bestroute</groupId>
     <artifactId>bestroute-api</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.4</version>
     <name>Bast Route</name>
     <description>Bast Route</description>
     <url/>
@@ -87,6 +87,11 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.8.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.loki4j</groupId>
+            <artifactId>loki-logback-appender</artifactId>
+            <version>1.5.1</version>
         </dependency>
     </dependencies>
 
