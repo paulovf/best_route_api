@@ -45,6 +45,7 @@ Domain modeling, database relational structures, and API architecture mind maps 
 
 - 🗄️ **Database Schema & Entity Models:** [Best Route - Database Structure](https://www.figma.com/board/OYUa8pboZUrUhOc6uaZUuC/Estrutura-tabelas-banco-de-dados?t=DUpCdS8f1zaZyiUs-1)
 - 🧠 **Backend Architecture & API Mind Map:** [Best Route - API Mind Map](https://www.figma.com/board/HTYkRQgw1OmiNNAozzQWt0/Mapa-mental-API?t=DUpCdS8f1zaZyiUs-1)
+- ⚙️ **Backend e API test script:** [Best Route - Test script]([https://www.figma.com/board/HTYkRQgw1OmiNNAozzQWt0/Mapa-mental-API?t=DUpCdS8f1zaZyiUs-1](https://www.figma.com/board/PRJFYCs3ryfSjZ2NBFJHUD/Roterio-de-testes?node-id=0-1&t=m8cZIFJDjEwjzlBJ-1))
 
 ---
 
