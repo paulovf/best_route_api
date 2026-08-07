@@ -1,10 +1,12 @@
 package com.bestroute.domain.model.route.option;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.math.BigDecimal;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("unused")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Step {

@@ -4,6 +4,13 @@ BestRoute API is an intelligent, high-performance solution built for route calcu
 
 ---
 
+## 🌐 Links
+
+- **API URL:** https://best-route-api.onrender.com
+- **APP URL:** https://best-route-app.vercel.app
+
+---
+
 ## 🛠️ Tech Stack & Tools
 
 The project leverages modern, production-grade tools from the Java ecosystem:
@@ -14,7 +21,7 @@ The project leverages modern, production-grade tools from the Java ecosystem:
 - **LLM / AI Model:** Google Gemini (Powering intelligent route and itinerary generation)
 - **Persistence & Migrations:** Spring Data JPA & Flyway (Database schema versioning)
 - **Database:** PostgreSQL (Hosted via Supabase with Connection Pooling enabled)
-- **Observability:** Spring Boot Actuator, Micrometer, Grafana Cloud (Prometheus metrics)
+- **Observability:** Spring Boot Actuator, Micrometer, Grafana Cloud (Loki metrics)
 - **Security:** Spring Security (Custom X-API-KEY header authentication filter)
 - **Documentation:** Springdoc OpenAPI 3 (Swagger UI)
 - **Cloud/Hosting:** Render (Web Services)
@@ -27,7 +34,7 @@ The project leverages modern, production-grade tools from the Java ecosystem:
 1. **Cost & API Call Optimization:** Intelligent search caching based on origin city, origin state, destination city, destination state, and travel date to prevent duplicate external requests.
 2. **Advanced Security:** Malicious and unauthorized traffic blocking via strict validation of the incoming `X-API-KEY` request header.
 3. **Fault Resilience:** A global error handling system (`GlobalExceptionHandler`) providing standardized JSON responses for edge cases, such as invalid input data (HTTP 400) or business rule violations like route generation failures (HTTP 422).
-4. **Real-time Observability:** Exposes application metrics, health checks, and JVM diagnostics to Grafana Cloud via Prometheus endpoints.
+4. **Real-time Observability:** Exposes application metrics, health checks, and JVM diagnostics to Grafana Cloud via Loki endpoints.
 5. **Production Ready:** Out-of-the-box automatic database migrations via Flyway and native handling of dynamic environment variables injected by PaaS platforms (like Render).
 
 ---
