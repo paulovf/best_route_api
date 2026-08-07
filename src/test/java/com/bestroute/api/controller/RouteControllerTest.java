@@ -39,7 +39,7 @@ class RouteControllerTest {
 	@WithMockUser
 	@DisplayName("When passing valid params, return HTTP status 200")
 	void shouldReturnOkWhenPayloadIsValid() throws Exception {
-		OffsetDateTime now = OffsetDateTime.now().truncatedTo(ChronoUnit.MILLIS);
+		OffsetDateTime now = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 		RouteResponse mockResponse = new RouteResponse(UUID.randomUUID(), "São Paulo", "SP", "Rio de Janeiro", "RJ",
 				now, new ArrayList<>());
 		when(routeService.getOrCreateRoute(any(RouteRequest.class))).thenReturn(mockResponse);
@@ -71,7 +71,7 @@ class RouteControllerTest {
 	@WithMockUser
 	@DisplayName("When passing invalid params, return HTTP status 400")
 	void shouldReturnBadRequestWithSnakeCaseErrorsWhenStateIsInvalid() throws Exception {
-		OffsetDateTime now = OffsetDateTime.now();
+		OffsetDateTime now = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
 		String invalidJson = """
 				{
 				    "origin_city": "São Paulo",
